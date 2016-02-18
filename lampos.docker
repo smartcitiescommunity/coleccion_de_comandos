@@ -20,7 +20,7 @@ RUN apt-get update && apt-get install -y apache2 \
  php5-cli \
  php5-apcu
  
-# Install MariaDB and set default root password
+# Install MariaDB and set default root password-
 
 RUN echo 'mariadb-server mariadb-server/root_password  password mypassword' | debconf-set-selections
 RUN echo 'mariadb-server mariadb-server/root_password_again password mypassword' | debconf-set-selections
