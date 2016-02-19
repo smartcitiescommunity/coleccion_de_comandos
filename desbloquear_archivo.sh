@@ -1,0 +1,1 @@
+fuser -k archivo.xx
