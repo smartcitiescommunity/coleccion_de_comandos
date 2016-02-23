@@ -1,0 +1,1 @@
+dmidecode | grep -i prod
