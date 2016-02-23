@@ -1,0 +1,1 @@
+TMPROOT=/tmp; TMPDIR=$(mktemp -d $TMPROOT/somedir.XXXXXX); TMPFILE=$(mktemp $TMPROOT/somefile.XXXXXX); trap "rm -rf $TMPDIR $TMPFILE; exit" INT TERM EXIT; some treatment using $TMPDIR and $TMPFILE; exit 0
