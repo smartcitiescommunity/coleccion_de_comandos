@@ -1,0 +1,1 @@
+ssh -MNf <user>@<host>
