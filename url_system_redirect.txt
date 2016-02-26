@@ -1,0 +1,4 @@
+192.168.0.100        www.mydomain.com
+Replace the IP address with the IP of your server and www.mydomain.com with the domain name of the website.
+Linux: /etc/hosts
+Windows: C:\Windows\system32\drivers\etc\hosts
