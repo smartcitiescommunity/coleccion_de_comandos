@@ -1,0 +1,2 @@
+#pvl 'link1' 'link2' 'link3'
+pvl() { (for i in "$@"; do youtube-dl -q --max-downloads 1 --no-playlist "$i" -o - | mplayer -vo null /dev/fd/3 3<&0 </dev/tty; sleep .5; done); }
