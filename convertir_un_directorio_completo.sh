@@ -1,0 +1,1 @@
+lc() { od="$1"; nd="$2"; of=$3; nf=$4; cp -rl "$od" "$nd"; find $nd -type f -iname \*$of -print -execdir ffmpeg -i {} -loglevel error -q:a 6 {}.$nf \; -execdir rm {} +; find $nd -type f -iname \*.$of.$nf -execdir rename "s/$of.$nf/$nf/" {} +; }
