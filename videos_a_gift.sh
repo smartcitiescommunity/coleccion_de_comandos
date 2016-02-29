@@ -1,0 +1,1 @@
+ffgif() { p="fps=10,scale=${4:-320}:-1:flags=lanczos"; ffmpeg -y -ss ${2:-0} -t ${3:-0} -i "$1" -vf ${p},palettegen .p.png && ffmpeg -ss ${2:-0} -t ${3:-0} -i "$1" -i .p.png -filter_complex "${p}[x];[x][1:v]paletteuse" "${1%.*}".gif && rm .p.png; }
