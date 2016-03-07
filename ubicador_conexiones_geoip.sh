@@ -1,0 +1,1 @@
+sudo tcpdump -i eth0 -n ip | awk '{ print gensub(/(.*)\..*/,"\\1","g",$3), $4, gensub(/(.*)\..*/,"\\1","g",$5) }' | awk -F " > " '{print $1"\n"$2}'>ipsxs.txt; cat ./ipsxs.txt | sort | uniq | xargs -n 1 geoiplookup { } | sort | uniq -c | sort
