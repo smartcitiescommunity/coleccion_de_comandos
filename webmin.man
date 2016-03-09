@@ -1,0 +1,13 @@
+sudo nano /etc/apt/sources.list
+Ctrl-W then Ctrl-V to navigate to the end of the file, then add the following lines to the file:
+
+deb http://download.webmin.com/download/repository sarge contrib
+deb http://webmin.mirror.somersettechsolutions.co.uk/repository sarge contrib
+
+When you are finished editing, save the file by pressing Ctrl-X, then y, RETURN.
+
+wget -q http://www.webmin.com/jcameron-key.asc -O- | sudo apt-key add -
+
+sudo apt-get update
+
+sudo apt-get install webmin
