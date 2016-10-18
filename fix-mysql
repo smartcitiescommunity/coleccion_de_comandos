@@ -1,0 +1,10 @@
+#!/bin/bash
+service apache2 stop
+service mysql stop
+service mysql start
+mysqlcheck -uroot -ptoor --all-databases
+mysqlcheck -uroot -ptoor --all-databases -o
+mysqlcheck -uroot -ptoor --all-databases --auto-repair
+mysqlcheck -uroot -ptoor --all-databases --analyze
+service apache2 restart && service mysql restart
+echo "terminado"
