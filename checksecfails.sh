@@ -1,0 +1,1 @@
+debsecan --format detail
