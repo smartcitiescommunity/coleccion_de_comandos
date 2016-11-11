@@ -1,0 +1,1 @@
+truncate --size 1G bigfile.txt
