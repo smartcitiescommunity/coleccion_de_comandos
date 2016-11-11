@@ -1,0 +1,1 @@
+while kill -0 0; do timeout 5 bash -c 'spinner=( Ooooo oOooo ooOoo oooOo ooooO oooOo ooOoo oOooo); while true; do for i in ${spinner[@]}; do for _ in seq 0 ${#i}; do echo -en "\b\b"; done; echo -ne "${i}"; sleep 0.2; done; done'; done
