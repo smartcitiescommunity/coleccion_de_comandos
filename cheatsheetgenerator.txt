@@ -1,0 +1,210 @@
+#!/bin/python2.7
+######################################
+#        Jacek Zaleski               #
+#            CAWG                    #
+#     CHEATS WALPAPER GENERATOR      #
+#            V0.2.2                  #
+######################################
+import PIL
+from PIL import ImageFont
+from PIL import Image
+from PIL import ImageDraw
+import fileinput
+import textwrap
+import pygame
+ 
+def pointstopixel(punkty):
+    pixel=(punkty*(96/72))
+    return pixel
+def wieksza(a ,b):
+    if a>=b:
+        a=a
+    else:
+        a=b
+    return a
+    
+outputfile="tapeta.png"
+VROZMIAR=56
+HROZMIAR=800
+KOLUMNA=55
+FONTSIZE=9
+FONTSIZE2=14
+pygame.init()
+screen_info = pygame.display.Info() #Required to set a good resolution for the game screen
+HROZMIAR,VROZMIAR = screen_info.current_w,screen_info.current_h
+ 
+font1 = ImageFont.truetype("/usr/share/fonts/truetype/ttf-dejavu/DejaVuSerif.ttf",FONTSIZE,encoding='unic')
+font2 = ImageFont.truetype("/usr/share/fonts/truetype/ttf-dejavu/DejaVuSans-Bold.ttf",FONTSIZE2,encoding='unic')
+ 
+ 
+img=Image.new("RGBA", (HROZMIAR,VROZMIAR),(0,0,0))
+draw = ImageDraw.Draw(img)
+#y_text=15
+w=10
+y_text = 45
+width = 5
+widthtt=0
+maxw=0
+height=0
+f = open('dane.txt','r')
+ 
+for text in iter(f):
+    
+    h=0
+    lines = textwrap.wrap(text, KOLUMNA)
+    if width < HROZMIAR:
+        if pointstopixel(y_text+25)>VROZMIAR:
+            width += pointstopixel(maxw)+10
+            y_text=45
+         
+        if text[0]=='#': 
+            font=font2
+        else:
+            font=font1
+        semf=0
+        for line in lines:
+             
+            if semf>0:
+                line="           "+line
+            widthtt, height = font.getsize(line)
+            maxw=wieksza(maxw,widthtt)
+            semf +=1     
+            
+             
+        
+            draw.text((width, y_text), line, font = font, fill = (255,255,255))
+            y_text += height
+      
+    else:
+        break
+        print 'niediala'
+             
+  
+f.close()
+stopka="https://consolechars.wordpress.com"
+width7, height7 = font.getsize(stopka)
+draw.text((HROZMIAR-width7,VROZMIAR-height7),stopka , font = font1, fill = (255,255,255))
+draw = ImageDraw.Draw(img)
+
+#
+pygame.display.set_mode
+#print pygame.display.Info
+img.save(outputfile)
+img.show()
+=====================================================
+#FILE COMMANDS
+ls - directory listing
+ls -al formated listing witch formated files
+ 
+#SSH
+ssh user@host - connect to host
+ssh u@h -L LOCAL_PORT:ip:PORT tuneling ip to port
+ 
+#INSTALLATION
+./configure
+make
+make install
+ 
+dpkg -i .....
+apt-get install ...
+rpm -Uvh pkg.rpm
+ 
+#NETWOR
+dig domain -get dns domain
+dif -x -reverse lookup
+ 
+ethtool eth0 - Show status interface eth0
+ethtool --change eth0 autoneg off speed 100 duplex full -Manually set ethernet interface speed
+iwconfig eth1   Show status of wireless interface eth1
+iwconfig eth1 rate 1Mb/s fixed  Manually set wireless interface speed
+iwlist scan List wireless networks in range
+ip link show    List network interfaces
+ip link set dev eth0 name wan   Rename interface eth0 to wan
+ip link set dev eth0 up Bring interface eth0 up (or down)
+ip addr show    List addresses for interfaces
+ip addr add 1.2.3.4/24 brd + dev eth0   Add (or del) ip and mask 255.255.255.0)
+ip route show   List routing table
+ip route add default via 1.2.3.254 Set default gateway to 1.2.3.254
+host pixelbeat.org  Lookup DNS ip address for name or vice versa
+hostname -i Lookup local ip address (equivalent to host `hostname`)
+whois pixelbeat.org Lookup whois info for hostname or ip address
+netstat -tupl   List internet services on a system
+netstat -tup    List active connections to/from system
+ 
+#COMPRESION
+tar cf file.tar files -create a tar
+tar xf file.tar -extracting files
+tar czf file.tar.gz files -ceate tar.gz
+tar xzf file.tar.gz -extract
+ 
+#SSH
+ssh $USER@$HOST
+ssh -f -Y $USER@$HOSTNAME xeyes -Run GUI command on $HOSTNAME as $USER
+scp -p -r $USER@$HOST: file dir/ -Copy with permissions to $USER's home directory on $HOST
+scp -c arcfour $USER@$LANHOST: bigfile  -Use faster crypto for local LAN. This might saturate GigE
+ssh -g -L 8080:localhost:80 root@$HOST  -Forward connections to $HOSTNAME:8080 out to $HOST:80
+ssh -R 1434:imap:143 root@$HOST -Forward connections from $HOST:1434 in to imap:143
+ssh-copy-id $USER@$HOST Install -public key for $USER@$HOST for password-less log in
+ 
+#WGET
+(cd dir/ && wget -nd -pHEKk http://www.pixelbeat.org/cmdline.html)  Store local browsable version of a page to the current dir
+wget -c http://www.example.com/large.file -Continue downloading a partially downloaded file
+wget -r -nd -np -l1 -A '*.jpg' http://www.example.com/dir/ -Download a set of files to the current directory
+wget ftp://remote/file[1-9].iso/ -FTP supports globbing directly
+wget -q -O- http://www.pixelbeat.org/timeline.html | grep 'a href' | head -Process output directly
+echo 'wget url' | at 01:00 -Download url at 1AM to current dir
+wget --limit-rate=20k url -Do a low priority download (limit to 20KB/s in this case)
+wget -nv --spider --force-html -i bookmarks.html    Check links in a file
+wget --mirror http://www.example.com/   Efficiently update a local copy
+ 
+#DISK SPACE
+ls -lSr Show files by size, biggest last
+du -s * | sort -k1,1rn | head   Show top disk users in current dir. See also dutop
+du -hs /home/* | sort -k1,1h    Sort paths by easy to interpret disk usage
+df -h   Show free space on mounted filesystems
+df -i   Show free inodes on mounted filesystems
+fdisk -l    Show disks partitions sizes and types (run as root)
+rpm -q -a --qf '%10{SIZE}\t%{NAME}\n' | sort -k1,1n List all packages by installed size (Bytes) on rpm distros
+dpkg-query -W -f='${Installed-Size;10}\t${Package}\n' | sort -k1,1n List all packages by installed size (KBytes) on deb distros
+dd bs=1 seek=2TB if=/dev/null of=ext3.test  Create a large test file (taking no space). See also truncate
+> file   truncate data of file or create an empty file
+ 
+#WINDOWS NETWORK
+smbtree Find windows machines. See also findsmb
+nmblookup -A 1.2.3.4 Find the windows (netbios) name associated with ip address
+smbclient -L windows_box List shares on windows machine or samba server
+mount -t smbfs -o fmask=666,guest //windows_box/share /mnt/share    Mount a windows share
+echo 'message' | smbclient -M windows_box Send popup to windows machine /dev/null   Summarise/profile system calls made by command
+ strace -f -e open ls >/dev/null List system calls made by command
+ strace -f -e trace=write -e write=1,2 ls >/dev/null Monitor what's written to stdout and stderr
+ ltrace -f -e getenv ls >/dev/null   List library calls made by command
+ lsof -p $$ List paths that process id has open
+ lsof ~ List processes that have specified path open
+ tcpdump not port 22    Show network traffic except ssh. See also tcpdump_not_me
+ ps -e -o pid,args --forest List processes in a hierarchy
+ ps -e -o pcpu,cpu,nice,state,cputime,args --sort pcpu | sed '/^ 0.0 /d'    List processes by % cpu usage
+ ps -e -orss=,args= | sort -b -k1,1n | pr -TW$COLUMNS   List processes by mem (KB) usage.
+ ps -C firefox-bin -L -o pid,tid,pcpu,state List all threads for a particular process
+ ps -p 1,$$ -o etime=   List elapsed wall time for particular process IDs
+ last reboot    Show system reboot history
+ free -m    Show amount of (remaining) RAM (-m displays in MB)
+ watch -n.1 'cat /proc/interrupts'  Watch changeable data continuously
+ udevadm monitor    Monitor udev events to help configure rules
+ 
+#UNITS
+echo '(1 + sqrt(5))/2' | bc -l  Quick math (Calculate φ). See also bc
+seq -f '4/%g' 1 2 99999 | paste -sd-+ | bc -l   Calculate π the unix way
+echo 'pad=20; min=64; (100*10^6)/((pad+min)*8)' | bc    More complex (int) e.g. This shows max FastE packet rate
+echo 'pad=20; min=64; print (100E6)/((pad+min)*8)' | python Python handles scientific notation
+echo 'pad=20; plot [64:1518] (100*10**6)/((pad+x)*8)' | gnuplot -persist -Plot FastE packet rate vs packet size
+echo 'obase=16; ibase=10; 64206' | bc   Base conversion (decimal to hexadecimal)
+echo $((0x2dec))    Base conversion (hex to dec) ((shell arithmetic expansion))
+units -t '100m/9.58s' 'miles/hour'  Unit conversion (metric to imperial)
+units -t '500GB' 'GiB'  Unit conversion (SI to IEC prefixes)
+units -t '1 googol' Definition lookup
+seq 100 | (tr '\n' +; echo 0) | bc -Add a column of numbers. See also add and funcpy
+#RSYNC
+rsync -P rsync://rsync.server.com/path/to/file file Only get diffs. Do multiple times for troublesome downloads
+ rsync --bwlimit=1000 fromfile tofile   Locally copy with rate limit. It's like nice for I/O
+ rsync -az -e ssh --delete ~/public_html/ remote.com:'~/public_html'    Mirror web site (using compression and encryption)
+ rsync -auz -e ssh remote:/dir/ . && rsync -auz -e ssh . remote:/dir/   Synchronize current directory with remote one
