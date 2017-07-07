@@ -48,3 +48,24 @@ echo '80' > MaxDiskUsage
 echo 'yes' > CustomerProof
 echo 'yes' > CreateHomeDir
 echo '1' > TLS
+https://www.howtoforge.com/pureftpd_mysql_virtual_hosting_p2
+#Check
+#/etc/pure-ftpd/db/mysql.conf
+#----------------------------#
+MYSQLSocket      /var/run/mysqld/mysqld.sock
+#MYSQLServer     localhost
+#MYSQLPort       3306
+MYSQLUser       pureftpd
+MYSQLPassword   ftpdpass
+MYSQLDatabase   pureftpd
+#MYSQLCrypt md5, cleartext, crypt() or password() - md5 is VERY RECOMMENDABLE uppon cleartext
+MYSQLCrypt      md5
+MYSQLGetPW      SELECT Password FROM ftpd WHERE User="\L" AND status="1" AND (ipaccess = "*" OR ipaccess LIKE "\R")
+MYSQLGetUID     SELECT Uid FROM ftpd WHERE User="\L" AND status="1" AND (ipaccess = "*" OR ipaccess LIKE "\R")
+MYSQLGetGID     SELECT Gid FROM ftpd WHERE User="\L"AND status="1" AND (ipaccess = "*" OR ipaccess LIKE "\R")
+MYSQLGetDir     SELECT Dir FROM ftpd WHERE User="\L"AND status="1" AND (ipaccess = "*" OR ipaccess LIKE "\R")
+MySQLGetBandwidthUL SELECT ULBandwidth FROM ftpd WHERE User="\L"AND status="1" AND (ipaccess = "*" OR ipaccess LIKE "\R")
+MySQLGetBandwidthDL SELECT DLBandwidth FROM ftpd WHERE User="\L"AND status="1" AND (ipaccess = "*" OR ipaccess LIKE "\R")
+MySQLGetQTASZ   SELECT QuotaSize FROM ftpd WHERE User="\L"AND status="1" AND (ipaccess = "*" OR ipaccess LIKE "\R")
+MySQLGetQTAFS   SELECT QuotaFiles FROM ftpd WHERE User="\L"AND status="1" AND (ipaccess = "*" OR ipaccess LIKE "\R")
+#---------------------------#
