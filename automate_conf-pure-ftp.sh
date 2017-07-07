@@ -1,3 +1,24 @@
+#!/bin/bash
+sudo groupadd ftpgroup
+sudo useradd -g ftpgroup -d /dev/null -s /etc ftpuser
+sudo mkdir /home/ftpusers
+read -p "usuario ftp no usar espacio o caracteres o simbolos" nuevousuario
+sudo mkdir /home/ftpusers/$nuevousuario
+sudo pure-pw useradd $nuevousuario -u ftpuser -d /home/ftpusers/$nuevousuario
+sudo pure-pw mkdb
+sudo ln -s /etc/pure-ftpd/pureftpd.passwd /etc/pureftpd.passwd
+sudo ln -s /etc/pure-ftpd/pureftpd.pdb /etc/pureftpd.pdb
+sudo ln -s /etc/pure-ftpd/conf/PureDB /etc/pure-ftpd/auth/PureDB
+sudo usermod -u 1021 -p -U ftpuser
+sudo groupmod -g 1022 ftpgroup
+sudo chown -hR ftpuser:ftpgroup /home/ftpusers/
+sudo apt-get install openssl
+sudo echo 2 > /etc/pure-ftpd/conf/TLS
+sudo echo 1 > /etc/pure-ftpd/conf/TLS
+sudo mkdir -p /etc/ssl/private/
+sudo openssl req -x509 -nodes -days 7300 -newkey rsa:2048 -keyout /etc/ssl/private/pure-ftpd.pem -out /etc/ssl/private/pure-ftpd.pem
+sudo chmod 600 /etc/ssl/private/pure-ftpd.pem
+/etc/init.d/pure-ftpd restart
 echo 'yes' > ChrootEveryone
 echo 'yes' > BrokenClientsCompatibility
 echo '50' > MaxClientsNumber
@@ -18,11 +39,12 @@ echo '2000 8' > LimitRecursion
 echo 'yes' > AntiWarez
 echo 'no' > AnonymousCanCreateDirs
 echo '4' > MaxLoad
-echo 'no' > AllowUserFXP
+echo 'yes' > AllowUserFXP
 echo 'no' > AllowAnonymousFXP
 echo 'no' > AutoRename
 echo 'yes' > AnonymousCantUpload
 echo 'yes' > NoChmod
 echo '80' > MaxDiskUsage
 echo 'yes' > CustomerProof
-echo '0' > TLS
+echo 'yes' > CreateHomeDir
+echo '1' > TLS
