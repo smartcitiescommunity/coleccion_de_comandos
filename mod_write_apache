@@ -1,0 +1,11 @@
+sudo a2enmod rewrite && sudo service apache2 restart
+#sudo nano /etc/apache2/sites-available/000-default.conf
+#Below “DocumentRoot /var/www/html” add the following lines:
+#<Directory “/var/www/html”>
+#                Options Indexes FollowSymLinks MultiViews
+#               AllowOverride All
+#                Order allow,deny
+#                allow from all
+#</Directory>
+#
+sudo service apache2 restart
