@@ -1,4 +1,4 @@
-#http://askubuntu.com/questions/178712/how-to-increase-swap-space | https://www.2daygeek.com/add-extend-increase-swap-space-memory-file-partition-linux/
+#http://askubuntu.com/questions/178712/how-to-increase-swap-space | https://help.ubuntu.com/community/InstallingANewHardDrive | https://help.ubuntu.com/community/SwapFaq | https://www.2daygeek.com/add-extend-increase-swap-space-memory-file-partition-linux/
 sudo mkdir /media/fasthdd/
 sudo dd if=/dev/zero of=/media/fasthdd/swapfile.img bs=1024 count=1M
 sudo mkswap /media/fasthdd/swapfile.img
